@@ -1,0 +1,17 @@
+TARGET = ComprTex
+ENGINE_DIR = ../../nenuzhno-engine
+
+all: $(TARGET)
+
+INCLUDES = -I. -I$(ENGINE_DIR) -I../../../../Libs/gl/glm/glm -I../../../../Libs/gl/glew-2.1.0/include
+CPPFLAGS = -Wall -ggdb
+LDFLAGS = -static-libgcc -static-libstdc++ -ggdb
+LIBS = -lnenuzhno-engine -L$(ENGINE_DIR) -lGL -lglfw3 -lX11 -lXrandr -lXinerama -lXcursor -lpthread -ldl -lGLEW -L../../../../Libs/gl/glfw-3.2.1_src/lib -L../../../../Libs/gl/glew-2.1.0/lib
+SRCS = ComprTex.cpp
+OBJS = $(patsubst %.cpp,obj/%.o,$(SRCS))
+
+obj/%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CPPFLAGS) $(INCLUDES)
+
+$(TARGET): $(OBJS) $(ENGINE_DIR)/libnenuzhno-engine.a
+	$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)

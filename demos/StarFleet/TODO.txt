@@ -1,0 +1,20 @@
+UI
+	change font+
+	pause menu+
+	settings 
+	HUD-
+Gameplay
+	controll
+	better AI
+	more weapons
+	more ships
+Graphics
+	better explosion
+	better models
+	environment
+	lighting
+	rework renderer-
+Other
+	fix collision+
+	sounds
+

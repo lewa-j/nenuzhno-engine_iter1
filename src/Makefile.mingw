@@ -1,0 +1,44 @@
+#TARGET = nenuzhno-engine.exe
+TARGET = ../bin/libnenuzhno-engine.a
+LIBS_DIR = ../../../../Libs
+
+all: $(TARGET)
+
+INCLUDES = -I. -I$(LIBS_DIR)/gl/glew-2.0.0/include -I$(LIBS_DIR)/gl/glfw-3.3.bin.WIN32/include -I$(LIBS_DIR)/gl/glm/glm -I$(LIBS_DIR)/OpenAL-soft/include
+CPPFLAGS = -Wall -ggdb
+LDFLAGS = -static-libgcc -static-libstdc++
+LIBS = -lglfw3 -lgdi32 -lglew32 -lopengl32 -L$(LIBS_DIR)/gl/glfw-3.3.bin.WIN32/lib-mingw-w64 -L$(LIBS_DIR)/gl/glew-2.0.0/lib -lOpenAL32 -L$(LIBS_DIR)/OpenAL-soft/libs/Win32
+SRCS = main.cpp log.cpp system/config.cpp system/FileSystem.cpp game/IGame.cpp sound/sound_al.cpp sound/AudioClip.cpp network/network.cpp network/udp_socket.cpp \
+	graphics/gl_utils.cpp graphics/gl_ext.cpp graphics/glsl_prog.cpp graphics/bin_gpu_prog.cpp graphics/vbo.cpp graphics/vao.cpp graphics/fbo.cpp graphics/texture.cpp \
+	renderer/renderer.cpp renderer/LightingForward.cpp renderer/mesh.cpp renderer/Model.cpp renderer/font.cpp renderer/camera.cpp \
+	scene/Scene.cpp cull/frustum.cpp cull/BoundingBox.cpp \
+	resource/ResourceManager.cpp resource/nmf_loader.cpp resource/mesh_loader.cpp resource/obj_loader.cpp resource/vtf_loader.cpp resource/dds_loader.cpp \
+	renderer/BokehBlur.cpp
+
+OBJS = $(patsubst %.cpp,obj/%.o,$(SRCS))
+
+obj/%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CPPFLAGS) $(INCLUDES)
+
+%.exe: $(OBJS) obj
+	$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)
+
+../bin/libnenuzhno-engine.a: $(OBJS)
+	$(AR) rcs $@ $^
+
+obj:
+	mkdir obj
+	mkdir obj\sound
+	mkdir obj\renderer
+	mkdir obj\cull
+	mkdir obj\network
+
+.PHONY: clean
+
+clean:
+	del $(subst /,\,$(OBJS))
+
+#rebuild: clean all
+
+renderer/Model.cpp: renderer/model.h
+resource/nmf_loader.cpp: renderer/Model.h

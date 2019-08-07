@@ -1,0 +1,44 @@
+Nenuzhno model format *.nmf
+
+v1.0
+
+Header:
+magic (NMF\0) 4b
+version 4b (2b.2b)
+length 4b
+hash (?)
+
+vertsCount
+vertsOffs
+indSize
+indsCount (if 0, not indexed)
+indsOffs
+
+vertexFormat (bit mask pos,nrm,uv,uv2,tangents,weights, etc.)
+stride
+
+SubMeshes (offset and length in inds or verts)
+Mateials names
+
+v1.1
+collidersCount
+collidersOffset
+BoundingBox
+
+todo:
+v2.0
+vertexFormat:
+numAttribs
+attrib{
+name? or enum?
+size, type, normalize, stride, offset
+}
+can be in one buffer (abcabc) or in few (aabbcc)
+
+
+BoundingBox
+Bones
+Sequences (+external)
+Attachments (to bones)
+Physics (collision)
+

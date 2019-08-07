@@ -1,0 +1,24 @@
+
+android_backend
+	log
+	IGame
+		CreateGame()
+	FileSystem
+renderer
+	vbo
+	glslProg
+	texture
+	mesh_loader
+		mesh
+	font
+		ResourceManager
+			dds_loader
+			vtf_loader
+			nmf_loader
+				Model
+				BoundingBox
+	GetLighting()
+	fbo
+	gl_utils
+	scene
+

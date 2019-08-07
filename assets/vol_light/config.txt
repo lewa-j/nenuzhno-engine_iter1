@@ -1,0 +1,19 @@
+modelName bridge1.nmf
+modelPos 0 1 0
+lightPos 1.1 7.1 -4
+lightTarget 0 2 2
+lightFOV 40
+lightAspect 1
+lightFar 12
+lightNear 4
+cameraPos 2.9 2.5 1.5
+cameraRot 10 100 0
+lightRes 512
+volScale 1
+debug 0
+
+lightPos 0.4 3.1 -2
+lightFOV 60
+lightAspect 1.2
+lightNear 0.2
+lightFar 8

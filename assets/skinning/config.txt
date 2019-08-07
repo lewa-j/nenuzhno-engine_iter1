@@ -1,0 +1,11 @@
+scale 0.03 0.03 0.03
+model models/turret.mdl
+anim 0
+#model models/Antlion.mdl
+#model models/Alyx.mdl
+#model models/personality_sphere.mdl
+#model models/elevator_b.mdl
+#model models/player.mdl
+#model models/player_animations.mdl
+#model models/headcrabclassic.mdl
+#model models/male_07.mdl

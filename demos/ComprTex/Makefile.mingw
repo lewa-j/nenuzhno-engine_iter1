@@ -1,0 +1,18 @@
+TARGET = ../../assets/ComprTex.exe
+ENGINE_DIR = ../..
+LIBS_DIR = ../../../../../Libs
+
+all: $(TARGET)
+
+INCLUDES = -I. -I$(ENGINE_DIR)/src -I$(LIBS_DIR)/gl/glm/glm -I$(LIBS_DIR)/gl/glew-2.0.0/include
+CPPFLAGS = -Wall -ggdb -m32
+LDFLAGS = -static-libgcc -static-libstdc++ -ggdb -m32
+LIBS = -lnenuzhno-engine -L$(ENGINE_DIR)/bin -lopengl32 -lglfw3 -lgdi32 -lglew32 -L$(LIBS_DIR)/gl/glfw-3.3.bin.WIN32/lib-mingw-w64 -L$(LIBS_DIR)/gl/glew-2.0.0/lib
+SRCS = ComprTex.cpp
+OBJS = $(patsubst %.cpp,obj/%.o,$(SRCS))
+
+obj/%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CPPFLAGS) $(INCLUDES)
+
+$(TARGET): $(OBJS) $(ENGINE_DIR)/bin/libnenuzhno-engine.a
+	$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)

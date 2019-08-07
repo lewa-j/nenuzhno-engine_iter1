@@ -1,0 +1,32 @@
+TARGET = libnenuzhno-engine.a
+
+all: $(TARGET)
+
+INCLUDES = -I. -I../../../Libs/gl/glew-2.1.0/include -I../../../Libs/gl/glfw-3.2.1_src/include -I../../../Libs/gl/glm/glm
+CPPFLAGS = -Wall -ggdb
+LDFLAGS = -static-libgcc -static-libstdc++
+LIBS = -L../../../Libs/gl/glfw-3.2.1_src/lib -lglfw3 -lX11 -lXrandr -lXinerama -lXcursor -lpthread -ldl -L../../../Libs/gl/glew-2.1.0/lib -lGLEW -lGL
+SRCS = main.cpp log.cpp system/config.cpp system/FileSystem.cpp game/IGame.cpp network/network.cpp network/udp_socket.cpp \
+	graphics/gl_utils.cpp graphics/gl_ext.cpp graphics/glsl_prog.cpp graphics/bin_gpu_prog.cpp graphics/vbo.cpp graphics/vao.cpp graphics/fbo.cpp graphics/texture.cpp \
+	renderer/renderer.cpp renderer/LightingForward.cpp renderer/mesh.cpp renderer/Model.cpp renderer/font.cpp renderer/camera.cpp \
+	scene/Scene.cpp cull/frustum.cpp cull/BoundingBox.cpp \
+	resource/ResourceManager.cpp resource/nmf_loader.cpp resource/mesh_loader.cpp resource/obj_loader.cpp resource/vtf_loader.cpp resource/dds_loader.cpp \
+	renderer/BokehBlur.cpp
+
+SRC_SOUND = sound/sound_al.cpp sound/AudioClip.cpp
+
+OBJS = $(patsubst %.cpp,obj_lin/%.o,$(SRCS))
+
+obj_lin/%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CPPFLAGS) $(INCLUDES)
+
+nenuzhno-engine: $(OBJS)
+	$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)
+
+libnenuzhno-engine.a: $(OBJS)
+	$(AR) rcs $@ $^
+
+
+renderer/Model.cpp: renderer/Model.h
+resource/nmf_loader.cpp: renderer/Model.h
+

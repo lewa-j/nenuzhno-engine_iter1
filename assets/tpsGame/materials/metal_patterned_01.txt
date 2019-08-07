@@ -1,0 +1,3 @@
+light
+materials/metal_patterned_01-l-color.dds
+materials/metal_patterned_01-l-normal.dds

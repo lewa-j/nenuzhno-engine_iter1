@@ -1,0 +1,26 @@
+TARGET = ../../assets/blur-test.exe
+ENGINE_DIR = ../..
+LIBS_DIR = ../../../../../Libs
+
+all: $(TARGET)
+
+INCLUDES = -I. -I$(LIBS_DIR)/gl/glew-2.0.0/include -I$(LIBS_DIR)/gl/glfw-3.3.bin.WIN32/include -I$(LIBS_DIR)/gl/glm/glm -I$(ENGINE_DIR)/src
+CPPFLAGS = -Wall -g -ggdb -m32 -gdwarf-2 
+LIBS = -lnenuzhno-engine -lglfw3 -lglew32 -lopengl32 -lgdi32 -L$(ENGINE_DIR)/bin -L$(LIBS_DIR)/gl/glfw-3.3.bin.WIN32/lib-mingw -L$(LIBS_DIR)/gl/glew-2.0.0/lib
+LDFLAGS = -static-libgcc -static-libstdc++ -m32 -g -ggdb -gdwarf-2 
+SRCS = blur.cpp
+OBJS := $(patsubst %.cpp,obj/%.o,$(SRCS))
+
+obj/%.o: %.cpp
+	$(CXX) -c $< -o $(subst ..,_,$@) $(CPPFLAGS) $(INCLUDES)
+
+obj/_/graphics/gl_ext.o: ../graphics/gl_ext.cpp
+	$(CXX) -c $< -o $(subst ..,_,$@) $(CPPFLAGS) $(INCLUDES)
+
+$(TARGET): $(subst ..,_,$(OBJS)) $(ENGINE_DIR)/bin/libnenuzhno-engine.a
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+clean:
+	$(RM) $(OBJS) $(TARGET)
+
+rebuild: clean all

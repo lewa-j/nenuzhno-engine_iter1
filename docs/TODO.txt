@@ -1,0 +1,75 @@
+see graphics/TODO.txt
+
+GL extensions checker +
+Multithreading +
+Menu *
+Text enter
+Console
+Config *
+MeshGenerator *
+vbsp loader to separate class
+mdl animation and skinning
+UI toolkit *
+Mono text rendering
+Stencil fog +
+Modular weapon system
+Multiplayer *
+ETC1 textures *
+Complete DDS *
+Engine resource system
+Scene class *
+Model format
+PCC loader +
+Skining with float textures
+Native egl init
+Refactor
+VertexArrayObject
+ErrorMessage window
+rewrite Buttons
+GetFileList
+Remove glew
+Network clients list
+3D sound
+
+Done:
+engine:
+	fs
+	log
+	time
+	touch input
+	keyboard input
+	mouse input
+graphics:
+	GL extensions
+	glsl shaders
+	vbo
+	fbo
+	texture
+		png (optional)
+		vtf
+		dds (simple)
+		software dxt decompression
+		cubemaps
+	mesh files
+		.mesh (simple)
+		.obj (shit)
+		need new format
+	font
+	camera
+cull:
+	bounding box
+		ray intersect
+	frustum
+		Contains aabb
+		Contains obb
+		Contains sphere
+network:
+	manager
+	ip address class
+	udp socket
+sound:
+	OpenAL
+	OpenSLES
+	mp3 music
+	wav sounds
+bullet physics (optional)

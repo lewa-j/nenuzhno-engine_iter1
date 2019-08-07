@@ -1,0 +1,8 @@
+view tps
+drawTouch 1
+debugPhysics 0
+drawBbox 0
+startScene test
+screenScale 1
+pistOffs 0.1 -0.3 -0.3
+

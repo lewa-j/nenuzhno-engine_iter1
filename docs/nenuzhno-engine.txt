@@ -1,0 +1,51 @@
+nenuzhno-engine documentation
+v 0.1
+
+Игровой движок "ненужно"
+Автор: Алексей Иванчуков lewa_j
+
+Обзор.
+Язык C++
+Графический API OpenGL 3.x/OpenGLES 2.0
+Физика Bullet
+Звук OpenAL
+Сеть UDP sockets
+Для работы с оконной системой используется glfw.
+Для 3D математики используется glm.
+
+Графика.
+Движок предоставляет интерфейсы для следующих графических объектов:
+Texture
+ArrayBeffer (VertexBufferObject, IndexBufferObject)
+FrameBufferObject
+Шейдерная программа
+VertexArrayObject
+
+И для следующих абстракций над ними:
+Font
+Mesh
+Model
+Material
+Renderer
+Camera
+Scene
+
+Ресурсы.
+Поддерживаются следующие форматы:
+Текстур: dds, vtf
+Моделей: nmf, mesh, obj
+(nmf - Nenuzhno Model Format)
+
+ResourceManager предоставляет доступ к загрузке ресурсов и позволяет добавлять свои загрузчики.
+Методы:
+bool Init()`- Инициализация
+Получение ресурсов по имени:
+Model *GetModel(const char *name)
+IMaterial *GetMaterial(const char *name)
+Texture *GetTexture(const char *name)
+Добавление своих загрузчиков:
+void AddModelLoader(IModelLoader *loader)
+void AddMaterialLoader(IMaterialLoader *loader)
+void AddTextureLoader(ITextureLoader *loader)
+
+
