@@ -6,17 +6,16 @@ I put it here so as not to lose by accident.
 
 Writen in C++. Uses OpenGL/ES 2.
 
+Use '-help' for comand line arguments.
+
 ## Dependencies
 
-MinGW-W64
+* [MinGW-W64](https://mingw-w64.org)
+* [GLFW 3.3](https://www.glfw.org/)
+* [GLM 0.9.9.0](https://glm.g-truc.net/0.9.9/index.html)
+* [GLEW 2.0](http://glew.sourceforge.net/)
 
-GLFW 3.3
-
-GLM 0.9.9.0
-
-GLEW 2.0
-
-## demos
+## Demos
 
 **StarFleet** - space battles "game". With basic fighter AI, but withous gameplay
 
@@ -38,3 +37,4 @@ GLEW 2.0
 
 **ComprTex** - demonstrates some compressed texture formats
 
+**[vbsp-gles](https://github.com/lewa-j/vbsp-gles)** - vbsp maps loader and renderer

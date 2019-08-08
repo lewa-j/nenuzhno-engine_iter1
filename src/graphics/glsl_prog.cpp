@@ -124,8 +124,11 @@ void glslProg::print_log(GLuint object)
 GLuint glslProg::CreateShader(const char *src, GLint type, const char *flags)
 {
 	GLuint sid = glCreateShader(type);
-	const char *strings[]={flags,src};
-	glShaderSource(sid,2,strings,NULL);
+	char ver[] = "#version 100\n";
+	if(strstr(src,"#version"))
+		ver[0] = 0;
+	const char *strings[] = {ver,flags,src};
+	glShaderSource(sid,3,strings,NULL);
 	glCompileShader(sid);
 	GLint compile_ok = GL_FALSE;
 	glGetShaderiv(sid,GL_COMPILE_STATUS, &compile_ok);
