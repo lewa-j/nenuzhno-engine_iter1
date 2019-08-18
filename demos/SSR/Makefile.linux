@@ -1,0 +1,23 @@
+TARGET = ../../assets/SSR
+ENGINE_DIR = ../..
+LIBS_DIR = ../../../../../libs
+
+all: $(TARGET)
+
+INCLUDES = -I. -I$(LIBS_DIR)/gl/glew-2.1.0/include -I$(LIBS_DIR)/gl/glfw-3.3/include -I$(LIBS_DIR)/gl/glm/glm -I$(ENGINE_DIR)/src
+CPPFLAGS = -Wall -ggdb
+LIBS = -lnenuzhno-engine -lGL -lglfw3 -lX11 -lXrandr -lXinerama -lXcursor -lpthread -ldl -lGLEW -L$(ENGINE_DIR)/bin/linux -L$(LIBS_DIR)/gl/glfw-3.3/lib -L$(LIBS_DIR)/gl/glew-2.1.0/lib
+LDFLAGS = -static-libgcc -static-libstdc++
+SRCS = ssr.cpp
+OBJS = $(patsubst %.cpp,obj/%.o,$(SRCS))
+
+obj/%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CPPFLAGS) $(INCLUDES)
+	
+$(TARGET): $(OBJS) $(ENGINE_DIR)/bin/linux/libnenuzhno-engine.a
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+clean:
+	$(RM) $(OBJS) $(TARGET)
+
+rebuild: clean all

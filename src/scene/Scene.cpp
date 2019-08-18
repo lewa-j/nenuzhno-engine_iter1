@@ -4,7 +4,7 @@
 #include "renderer/renderer.h"
 #include "scene/Scene.h"
 
-Scene::Scene():objects(),dynamicObjects(),skyBox(0){
+Scene::Scene():objects(),dynamicObjects(),skyBox(0),sunDirection(0){
 	
 }
 

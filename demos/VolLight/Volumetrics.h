@@ -10,7 +10,8 @@ class LightObject;
 #include <vec3.hpp>
 using glm::vec3;
 
-class Volumetrics{
+class Volumetrics
+{
 public:
 	Volumetrics();
 	void Init(Scene *sc,vec3 pos,vec3 target,float fov, float aspect,float aNear,float aFar,int lightRes);

@@ -1,0 +1,29 @@
+
+ENGINE_DIR = ../..
+TARGET := $(ENGINE_DIR)/assets/StarFleet
+LIBS_DIR = ../../../../../libs
+all: $(TARGET)
+
+INCLUDES = -I. -I$(LIBS_DIR)/gl/glm/glm -I$(LIBS_DIR)/gl/glew-2.1.0/include -I$(LIBS_DIR)/gl/glfw-3.3/include -I$(ENGINE_DIR)/src
+CPPFLAGS = -Wall -ggdb
+LDFLAGS = -static-libgcc -static-libstdc++ -ggdb
+LIBS = -lnenuzhno-engine -lGL -lglfw3 -lX11 -lXrandr -lXinerama -lXcursor -lpthread -ldl -lGLEW -L$(ENGINE_DIR)/bin/linux -L$(LIBS_DIR)/gl/glfw-3.3/lib -L$(LIBS_DIR)/gl/glew-2.1.0/lib
+SRCS = star-fleet.cpp input.cpp Ship.cpp Explosion.cpp Projectile.cpp
+OBJS = $(patsubst %.cpp,obj/%.o,$(SRCS))
+
+obj/%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CPPFLAGS) $(INCLUDES)
+
+$(TARGET): $(OBJS) $(ENGINE_DIR)/bin/linux/libnenuzhno-engine.a
+	$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)
+
+clean:
+	$(RM) $(OBJS) $(TARGET)
+
+rebuild: clean all
+
+obj/star-fleet.o: entity.h
+obj/input.o: entity.h
+obj/Ship.o: entity.h
+obj/Explosion.o: entity.h
+obj/Projectile.o: entity.h

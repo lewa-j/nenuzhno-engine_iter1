@@ -10,8 +10,8 @@
 #include "resource/ResourceManager.h"
 #include "renderer/renderer.h"
 #include "renderer/mesh.h"
-#include "renderer/material.h"
-#include "renderer/model.h"
+#include "renderer/Material.h"
+#include "renderer/Model.h"
 #include "graphics/texture.h"
 #include "graphics/fbo.h"
 #include "graphics/glsl_prog.h"
@@ -34,7 +34,8 @@ using glm::normalize;
 using glm::translate;
 using glm::scale;
 
-class VolLightGame: public IGame{
+class VolLightGame: public IGame
+{
 public:
 	VolLightGame(){}
 	void Created();
@@ -78,7 +79,8 @@ IGame *CreateGame(){
 	return new VolLightGame();
 }
 
-void VolLightGame::Created(){
+void VolLightGame::Created()
+{
 	Log("VolLight test Created()\n");
 	resMan = new ResourceManager();
 	resMan->Init();
@@ -131,6 +133,7 @@ void VolLightGame::Created(){
 	volFBO.CreateTexture(64,64,GL_LINEAR);
 	FrameBufferObject::Unbind();
 
+	//scene.sunDirection = glm::normalize(lightVol.lightObj->pos);
 	rend->SetScene(&scene);
 	
 	cam = Camera();
@@ -162,7 +165,8 @@ void VolLightGame::Changed(int w, int h){
 	frame = 0;
 }
 
-void VolLightGame::Draw(){
+void VolLightGame::Draw()
+{
 
 	double startTime = GetTime();
 	float deltaTime = (startTime-oldTime);

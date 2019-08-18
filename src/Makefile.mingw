@@ -1,6 +1,6 @@
 #TARGET = nenuzhno-engine.exe
 TARGET = ../bin/libnenuzhno-engine.a
-LIBS_DIR = ../../../../Libs
+LIBS_DIR = ../../../../libs
 
 all: $(TARGET)
 

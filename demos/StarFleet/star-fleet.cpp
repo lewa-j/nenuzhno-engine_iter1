@@ -75,7 +75,8 @@ void UpdateButtons()
 	bResume.func=Resume;
 }
 
-void ChangeState(eGameState s){
+void ChangeState(eGameState s)
+{
 	gameState = s;
 
 	for(uint32_t i=0; i<buttons.size(); i++){
@@ -148,6 +149,10 @@ void NewGame()
 		if(i<600){
 			obj->velocity = glm::ballRand(20.0f);
 			obj->ang = glm::linearRand(-40,40);
+		}else
+		{
+			obj->velocity = glm::vec3(0);
+			obj->ang = glm::linearRand(-2,2);
 		}
 		gGame->scene->AddObject(obj);
 	}
@@ -238,7 +243,7 @@ void StarFleetGame::Created()
 	
 	StartMenu();
 
-	oldTime=GetTime();
+	oldTime = GetTime();
 }
 
 float aspect;//for input
@@ -410,7 +415,7 @@ void StarFleetGame::Draw()
 		snprintf(str,64,"hp: %.0f",ships[1]->hp);
 		renderer->DrawText(str,0,0.1,0.48);
 
-		snprintf(str,64,"ents: %d",entities.size());
+		snprintf(str,64,"ents: %d",(int)entities.size());
 		renderer->DrawText(str,0.4,0.1,0.48);
 		
 		renderer->SetColor(0,1,0,1);

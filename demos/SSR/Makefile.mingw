@@ -1,6 +1,6 @@
 TARGET = ../../assets/ssr.exe
 ENGINE_DIR = ../..
-LIBS_DIR = ../../../../../Libs
+LIBS_DIR = ../../../../../libs
 
 all: $(TARGET)
 
