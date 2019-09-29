@@ -3,7 +3,7 @@
 
 #include <mat4x4.hpp>
 #include <vec3.hpp>
-#include "cull/Boundingbox.h"
+#include "cull/BoundingBox.h"
 #include "scene/Scene.h"
 
 class IRenderer;

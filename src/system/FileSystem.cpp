@@ -36,8 +36,10 @@ bool FileSystem::Init(const char *dir)
 	char path[256];
 #ifdef WIN32
 	snprintf(path,256,".\\%s", dir);
-#else
+#elif ANDROID
 	snprintf(path,256,"%s/nenuzhno-engine/%s", getenv("EXTERNAL_STORAGE"), dir);
+#else
+	snprintf(path,256,"./%s", dir);
 #endif
 	Log("InitFS() gamedir = %s\n",path);
 
@@ -54,7 +56,7 @@ bool FileSystem::Init(const char *dir)
 	}
 
 	LoadSearchPaths();
-#ifdef WIN32
+#ifndef ANDROID
 	snprintf(path,256,"%s/fslog.txt", dir);
 #else
 	snprintf(path,256,"%s/nenuzhno-engine/%s/fslog.txt", getenv("EXTERNAL_STORAGE"), dir);
@@ -122,7 +124,7 @@ bool FileSystem::WriteAll(const char *fileName, const char *data){
 bool FileSystem::FileExists(const char *fileName, bool gamedirOnly)
 {
 	char path[256];
-#ifdef WIN32
+#ifndef ANDROID
 	snprintf(path,256,"%s/%s", gamedir.c_str(), fileName);
 #else
 	snprintf(path,256,"%s/nenuzhno-engine/%s/%s", getenv("EXTERNAL_STORAGE"), gamedir.c_str(), fileName);
@@ -136,7 +138,7 @@ bool FileSystem::FileExists(const char *fileName, bool gamedirOnly)
 	{
 		if(!searchPaths[i][0])
 			break;
-#ifdef WIN32
+#ifndef ANDROID
 		snprintf(path,256,"%s/%s", searchPaths[i].c_str(), fileName);
 #else
 		snprintf(path,256,"%s/nenuzhno-engine/%s/%s", getenv("EXTERNAL_STORAGE"),  searchPaths[i].c_str(), fileName);
@@ -149,12 +151,13 @@ bool FileSystem::FileExists(const char *fileName, bool gamedirOnly)
 	return false;
 }
 
-bool FileSystem::DirExists(const char *name){
+bool FileSystem::DirExists(const char *name)
+{
 	struct stat info;
 
 	if(stat(name,&info)!=0)
 		return 0;
-	if(info.st_mode&S_IFDIR)
+	if(S_ISDIR(info.st_mode))
 		return 1;
 
 	return 0;
@@ -168,12 +171,12 @@ void FileSystem::AddArchive(IArchive *archive)
 
 bool FileSystem::GetFilePath(const char *fileName, char *path, bool gamedirOnly)
 {
-#ifdef WIN32
+#ifndef ANDROID
 	snprintf(path,256,"%s/%s", gamedir.c_str(), fileName);
 #else
 	snprintf(path,256,"%s/nenuzhno-engine/%s/%s", getenv("EXTERNAL_STORAGE"), gamedir.c_str(), fileName);
-	replace(path,'\\','/');
 #endif
+	replace(path,'\\','/');
 	if(ifstream(path)){
 		return true;
 	}
@@ -183,7 +186,7 @@ bool FileSystem::GetFilePath(const char *fileName, char *path, bool gamedirOnly)
 	{
 		if(!searchPaths[i][0])
 			break;
-#ifdef WIN32
+#ifndef ANDROID
 		snprintf(path,256,"%s/%s", searchPaths[i].c_str(), fileName);
 #else
 		snprintf(path,256,"%s/nenuzhno-engine/%s/%s", getenv("EXTERNAL_STORAGE"),  searchPaths[i].c_str(), fileName);
@@ -202,7 +205,7 @@ bool FileSystem::GetFilePath(const char *fileName, char *path, bool gamedirOnly)
 void FileSystem::LoadSearchPaths()
 {
 	char temp[256];
-#ifdef WIN32
+#ifndef ANDROID
 	snprintf(temp,256,"%s/SearchPaths.txt", gamedir.c_str());
 #else
 	snprintf(temp,256,"%s/nenuzhno-engine/%s/SearchPaths.txt", getenv("EXTERNAL_STORAGE"), gamedir.c_str());

@@ -12,7 +12,7 @@
 //GL_EXT_texture_format_BGRA8888
 #define GL_BGRA GL_BGRA_EXT
 #else
-#include "GL/glext.h"
+//#include "GL/glext.h"
 #endif
 #define GL_COMPRESSED_RGB_S3TC_DXT1 GL_COMPRESSED_RGB_S3TC_DXT1_EXT
 #define GL_COMPRESSED_RGBA_S3TC_DXT5 GL_COMPRESSED_RGBA_S3TC_DXT5_EXT

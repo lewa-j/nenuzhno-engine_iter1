@@ -18,7 +18,8 @@ Ship::Ship(): Entity(),gun(10,6.5f,20,0.35f,0.05f){
 	bbox = BoundingBox(glm::vec3(-0.6f,-0.5f,-0.8f),glm::vec3(0.6f,0.5f,0.8f));
 }
 
-void Ship::Update(float deltaTime){
+void Ship::Update(float deltaTime)
+{
 	lastShot += deltaTime;
 	t -= deltaTime;
 	if(hp <= 0.0f){
@@ -105,14 +106,15 @@ Asteroid::Asteroid(glm::vec3 pos,float s){
 	dynamic=true;
 	position = pos;
 	size = s;
-	ang = true;
+	ang = 0.5;
 	modelMtx = glm::translate(glm::mat4(size),pos);
 	displayMtx = modelMtx;
 }
 
 using glm::abs;
 
-void Asteroid::Update(float deltaTime){
+void Asteroid::Update(float deltaTime)
+{
 	position += velocity*deltaTime;
 	if(abs(position.x)>300||abs(position.y)>300||abs(position.z)>300){
 		position = glm::ballRand(250.0f);

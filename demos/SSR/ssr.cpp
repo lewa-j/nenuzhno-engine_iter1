@@ -1,6 +1,7 @@
 
 #include <gtc/type_ptr.hpp>
 
+#include "engine.h"
 #include "log.h"
 #include "graphics/platform_gl.h"
 #include "graphics/gl_utils.h"
@@ -14,7 +15,8 @@
 #include "renderer/camera.h"
 #include "game/IGame.h"
 
-class SSRGame : public IGame{
+class SSRGame : public IGame
+{
 public:
 	void Created();
 	void Changed(int w, int h);
@@ -22,6 +24,8 @@ public:
 	const char *GetGamedir(){
 		return "ssr";
 	}
+
+	double oldTime;
 };
 
 IGame *CreateGame(){
@@ -166,6 +170,8 @@ void SSRGame::Created()
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_CULL_FACE);
 	CheckGLError("Created", __FILE__, __LINE__);
+
+	oldTime = GetTime();
 }
 
 void SSRGame::Changed(int w, int h)
@@ -183,7 +189,11 @@ void SSRGame::Changed(int w, int h)
 float a = 0;
 void SSRGame::Draw()
 {
-	a+=0.02;
+	double startTime = GetTime();
+	float deltaTime = (startTime-oldTime);
+	oldTime = startTime;
+
+	a+=deltaTime;
 	camera.pos = glm::vec3(glm::sin(a),0.6f,glm::cos(a));
 	camera.rot = glm::vec3(30,glm::degrees(a),0);
 	camera.UpdateView();

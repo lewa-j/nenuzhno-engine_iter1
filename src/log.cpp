@@ -14,7 +14,7 @@ void LogInit()
 	logMode = eLogBoth;
 
 	char path[256];
-#ifdef WIN32
+#ifndef ANDROID
 	snprintf(path,256,"%s/log.txt", g_fs.gamedir.c_str());
 #else
 	snprintf(path,256,"%s/nenuzhno-engine/%s/log.txt", getenv("EXTERNAL_STORAGE"), g_fs.gamedir.c_str());

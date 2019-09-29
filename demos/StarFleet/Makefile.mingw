@@ -1,7 +1,7 @@
 
 ENGINE_DIR = ../..
 TARGET := $(ENGINE_DIR)/assets/StarFleet.exe
-LIBS_DIR = ../../../../../Libs
+LIBS_DIR = ../../../../../libs
 all: $(TARGET)
 
 INCLUDES = -I. -I$(LIBS_DIR)/gl/glm/glm -I$(LIBS_DIR)/gl/glew-2.0.0/include -I$(LIBS_DIR)/gl/glfw-3.3.bin.WIN32/include -I$(ENGINE_DIR)/src

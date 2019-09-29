@@ -10,8 +10,8 @@
 #include "resource/ResourceManager.h"
 #include "renderer/renderer.h"
 #include "renderer/mesh.h"
-#include "renderer/material.h"
-#include "renderer/model.h"
+#include "renderer/Material.h"
+#include "renderer/Model.h"
 #include "graphics/texture.h"
 #include "graphics/fbo.h"
 #include "graphics/glsl_prog.h"
@@ -137,6 +137,7 @@ void VolLightGame::Created()
 	volFBO.CreateTexture(64,64,GL_LINEAR);
 	FrameBufferObject::Unbind();
 
+	//scene.sunDirection = glm::normalize(lightVol.lightObj->pos);
 	rend->SetScene(&scene);
 	
 	cam = Camera();

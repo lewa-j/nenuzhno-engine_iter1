@@ -1,4 +1,5 @@
 
+#include "engine.h"
 #include "log.h"
 #include "graphics/platform_gl.h"
 #include "button.h"
@@ -95,7 +96,7 @@ Entity* Collide(Unit *u,vec3 orig, vec3 vel);
 vec3 GetGravity(Unit *u);
 
 vec3 planetPos(0.0f,0.0f,0.0f);
-const int asteroidsCount = 16;//2048;
+const int asteroidsCount = 256;
 float planetRadius = 1;
 float planetMass = 2000;
 float G = 0.000066;
@@ -235,7 +236,8 @@ vec3 GetGravity(Unit *u)
 
 Mesh meshCircle;
 
-class GravityGame: public IGame{
+class GravityGame: public IGame
+{
 public:
 	GravityGame(){}
 	void Created();
@@ -255,6 +257,8 @@ public:
 	Button bAdd;
 	Button bTrails;
 	Scroll bScroll;
+
+	double oldTime;
 };
 
 IGame *CreateGame(){
@@ -363,7 +367,7 @@ void GravityGame::Created()
 	rend->AddButton(&bAdd);
 	rend->AddButton(&bTrails);
 	
-
+	oldTime = GetTime();
 }
 
 void GravityGame::Changed(int w, int h)
@@ -385,6 +389,10 @@ void GravityGame::DrawCircle(vec3 pos, float size)
 
 void GravityGame::Draw()
 {
+	double startTime = GetTime();
+	float deltaTime = (startTime-oldTime);
+	oldTime = startTime;
+
 	if(bAdd.pressed)
 	{
 		bAdd.pressed=0;
@@ -405,8 +413,7 @@ void GravityGame::Draw()
 	}
 	
 	cam.SetOrtho(aspect,bScroll.pos*2,1);
-	
-	float deltaTime = 0.02;
+
 	int subSteps = 10;
 	for(int i=0;i<subSteps;i++){
 		for(size_t i = 0;i<entities.size();i++){
@@ -423,10 +430,11 @@ void GravityGame::Draw()
 			}
 		}
 	}
-	static int t=0;
+	static float t=0;
 	if(drawTrails){
-		t++;
-		if(t%10==0){
+		t+=deltaTime;
+		if(t>0.1){
+			t = 0;
 			for(size_t i = 0;i<entities.size();i++){
 				entities[i]->UpdateTail();
 			}
@@ -443,7 +451,7 @@ void GravityGame::Draw()
 	*/
 	
 	char temp[256];
-	snprintf(temp,256,"objects count: %d\nplanet mass %.3f",entities.size(), planetMass);
+	snprintf(temp,256,"objects count: %d\nplanet mass %.3f",(int)entities.size(), planetMass);
 	rend->DrawText(temp,0.02,0.9,0.2*rend->aspect);
 	
 	//mat4 mtx(1.0f);
@@ -493,7 +501,8 @@ Button::Button(float nx, float ny, float nw, float nh, const char *t, bool adjus
 void Button::Update(){}
 bool Button::SetUniform(int loc){return false;}
 
-void GravityGame::OnTouch(float tx, float ty, int ta, int tf){
+void GravityGame::OnTouch(float tx, float ty, int ta, int tf)
+{
 	float x = tx/rend->width;
 #ifdef ANDROID
 	float y = (ty-64)/rend->height;
