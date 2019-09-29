@@ -14,6 +14,9 @@
 
 #ifdef ANDROID
 #include "GLES2/gl2ext.h"
+#ifndef GL_COMPRESSED_RGB8_ETC2
+#define GL_COMPRESSED_RGB8_ETC2 0x9274
+#endif
 #else
 #define GL_ETC1_RGB8_OES 0x8D64
 #define GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG 0x8C00

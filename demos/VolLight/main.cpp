@@ -34,7 +34,8 @@ using glm::normalize;
 using glm::translate;
 using glm::scale;
 
-class VolLightGame: public IGame{
+class VolLightGame: public IGame
+{
 public:
 	VolLightGame(){}
 	void Created();
@@ -68,7 +69,11 @@ public:
 	int u_lightPosSizeIn;
 
 	Joystick joyL;
+#ifdef ANDROID
+	Joystick joyM;
+#else
 	KeyJoystick joyM;
+#endif
 	int frame;
 	
 	double oldTime;
@@ -78,7 +83,8 @@ IGame *CreateGame(){
 	return new VolLightGame();
 }
 
-void VolLightGame::Created(){
+void VolLightGame::Created()
+{
 	Log("VolLight test Created()\n");
 	resMan = new ResourceManager();
 	resMan->Init();
@@ -143,13 +149,17 @@ void VolLightGame::Created(){
 	rend->debug = cfg["debug"]!="0";
 
 	joyL = Joystick(0,0.5,0.5,0.5);
-	//joyM = Joystick(0.5,0.5,0.5,0.5);
+#ifdef ANDROID
+	joyM = Joystick(0.5,0.5,0.5,0.5);
+#else
 	joyM = KeyJoystick(IN_KEY_W,IN_KEY_S,IN_KEY_D,IN_KEY_A);
+#endif
 	frame = 0;
 	oldTime = GetTime();
 }
 
-void VolLightGame::Changed(int w, int h){
+void VolLightGame::Changed(int w, int h)
+{
 	if(!w||!h)
 		return;
 
@@ -162,7 +172,8 @@ void VolLightGame::Changed(int w, int h){
 	frame = 0;
 }
 
-void VolLightGame::Draw(){
+void VolLightGame::Draw()
+{
 
 	double startTime = GetTime();
 	float deltaTime = (startTime-oldTime);
@@ -257,7 +268,8 @@ Button::Button(float nx, float ny, float nw, float nh, const char *t, bool adjus
 void Button::Update(){}
 bool Button::SetUniform(int loc){return false;}
 
-void VolLightGame::OnTouch(float tx, float ty, int ta, int tf){
+void VolLightGame::OnTouch(float tx, float ty, int ta, int tf)
+{
 	float x = tx/rend->width;
 #ifdef ANDROID
 	float y = (ty-64)/rend->height;
@@ -277,7 +289,10 @@ void VolLightGame::OnTouch(float tx, float ty, int ta, int tf){
 	}
 }
 
-void VolLightGame::OnKey(int key, int scancode, int action, int mods){
+void VolLightGame::OnKey(int key, int scancode, int action, int mods)
+{
+#ifndef ANDROID
 	joyM.OnKey(key,action);
+#endif
 }
 

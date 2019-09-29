@@ -95,7 +95,7 @@ Entity* Collide(Unit *u,vec3 orig, vec3 vel);
 vec3 GetGravity(Unit *u);
 
 vec3 planetPos(0.0f,0.0f,0.0f);
-const int asteroidsCount = 2048;
+const int asteroidsCount = 16;//2048;
 float planetRadius = 1;
 float planetMass = 2000;
 float G = 0.000066;

@@ -11,6 +11,9 @@
 #define IN_KEY_A 3
 #define IN_KEY_D 4
 
+#define IN_KEY_PRESS 0
+#define IN_KEY_RELEASE 1
+
 #else
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>

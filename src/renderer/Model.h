@@ -7,6 +7,7 @@
 #include "graphics/ArrayBuffer.h"
 #include "renderer/Material.h"
 #include "cull/BoundingBox.h"
+#include "graphics/gl_ext.h"
 
 using glm::vec2;
 using glm::vec3;

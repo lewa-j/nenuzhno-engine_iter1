@@ -167,6 +167,9 @@ void GLExtensions::Init()
 	if(extFlags & eVertex_array_object){
 		InitVAO();
 	}
+	if(extFlags & eProgBin){
+		InitBinProg();
+	}
 
 	//GL_ARB_depth_texture GL_SGIX_depth_texture GL_OES_depth_texture
 	//GL_OES_depth_texture_cube_map
@@ -232,9 +235,13 @@ PFNGLBINDVERTEXARRAYOESPROC glBindVertexArray;
 PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArrays;
 PFNGLGENVERTEXARRAYSOESPROC glGenVertexArrays;
 PFNGLISVERTEXARRAYOESPROC glIsVertexArray;
+PFNGLGETPROGRAMBINARYOESPROC glGetProgramBinaryOES;
+PFNGLPROGRAMBINARYOESPROC glProgramBinaryOES;
+
 
 #include <EGL/egl.h>
-void GLExtensions::InitVAO(){
+void GLExtensions::InitVAO()
+{
 	Log("InitVAO\n");
 	glBindVertexArray = (PFNGLBINDVERTEXARRAYOESPROC)eglGetProcAddress("glBindVertexArrayOES");
 	Log("glBindVertexArray %p\n",glBindVertexArray);
@@ -242,6 +249,13 @@ void GLExtensions::InitVAO(){
 	glGenVertexArrays = (PFNGLGENVERTEXARRAYSOESPROC)eglGetProcAddress("glGenVertexArraysOES");
 	glIsVertexArray = (PFNGLISVERTEXARRAYOESPROC)eglGetProcAddress("glIsVertexArrayOES");
 }
+
+void GLExtensions::InitBinProg()
+{
+	glGetProgramBinaryOES = (PFNGLGETPROGRAMBINARYOESPROC) eglGetProcAddress("glGetProgramBinaryOES");
+	glProgramBinaryOES = (PFNGLPROGRAMBINARYOESPROC) eglGetProcAddress("glProgramBinaryOES");
+}
 #else
 void GLExtensions::InitVAO(){Log("InitVAO null\n");}
+void GLExtensions::InitBinProg(){Log("InitBinProg null\n");}
 #endif

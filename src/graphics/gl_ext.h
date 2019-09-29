@@ -25,6 +25,7 @@ class GLExtensions{
 public:
 	static void Init();
 	static void InitVAO();
+	static void InitBinProg();
 
 	static uint64_t extFlags;
 };
@@ -36,6 +37,8 @@ extern PFNGLBINDVERTEXARRAYOESPROC glBindVertexArray;
 extern PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArrays;
 extern PFNGLGENVERTEXARRAYSOESPROC glGenVertexArrays;
 extern PFNGLISVERTEXARRAYOESPROC glIsVertexArray;
+extern PFNGLGETPROGRAMBINARYOESPROC glGetProgramBinaryOES;
+extern PFNGLPROGRAMBINARYOESPROC glProgramBinaryOES;
 
 #define GL_HALF_FLOAT GL_HALF_FLOAT_OES
 #endif

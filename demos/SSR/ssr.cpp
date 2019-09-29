@@ -4,6 +4,7 @@
 #include "log.h"
 #include "graphics/platform_gl.h"
 #include "graphics/gl_utils.h"
+#include "graphics/gl_ext.h"
 #include "graphics/glsl_prog.h"
 #include "graphics/ArrayBuffer.h"
 #include "graphics/vao.h"
@@ -88,6 +89,8 @@ SceneObject cubeSO;
 
 void SSRGame::Created()
 {
+	GLExtensions::Init();
+	
 	simpleProg.CreateFromFile("simple", "simple");
 	simpleProg.u_mvpMtx = simpleProg.GetUniformLoc("u_mvpMtx");
 	if(texProg.CreateFromFile("generic", "col_tex"))
