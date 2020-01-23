@@ -15,6 +15,7 @@
 bin
 obj
 obj_lin
+NenuzhnoEngine-Android/libs/
 
 *.mdl
 *.vtx

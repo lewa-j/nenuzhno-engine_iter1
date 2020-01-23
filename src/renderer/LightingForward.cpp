@@ -20,6 +20,7 @@ public:
 		progLightDir.u_mvpMtx = progLightDir.GetUniformLoc("u_mvpMtx");
 		progLightDir.u_modelMtx = progLightDir.GetUniformLoc("u_modelMtx");
 		progLightDir.u_cameraPos = progLightDir.GetUniformLoc("u_camPos");
+		progLightDir.u_color = progLightDir.GetUniformLoc("u_color");
 		u_lightDir = progLightDir.GetUniformLoc("u_lightDir");
 
 		progLightPoint.CreateFromFile("lightPoint","lightPoint");
@@ -29,6 +30,7 @@ public:
 		u_lightPos = progLightPoint.GetUniformLoc("u_lightPos");
 		u_lightColor = progLightPoint.GetUniformLoc("u_lightColor");
 		u_lightSize = progLightPoint.GetUniformLoc("u_lightSize");
+		
 	}
 	virtual void Draw(){
 
@@ -37,6 +39,7 @@ public:
 	{
 		r->UseProg(&progLightDir);
 		glUniform3fv(progLightDir.u_cameraPos,1,&(camera->pos.x));
+		glUniform4f(progLightDir.u_color,1,1,1,1);
 		glUniform3fv(u_lightDir,1,&(scene->sunDirection.x));
 	}
 	virtual void SetCamera(Camera *cam){
