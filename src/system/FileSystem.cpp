@@ -408,5 +408,5 @@ void zipEntry::GetString(char *s, int l){
 	if(t>=l)
 		t = l-1;
 	strncpy(s,data+p,t);
-	data[t] = 0;
+	s[t] = 0;
 }
